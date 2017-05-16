@@ -1,54 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Add_Projects</class>
+ <widget class="QWidget" name="Add_Projects">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>450</height>
+    <width>592</width>
+    <height>724</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="7" column="2">
+   <item row="7" column="1">
     <widget class="QLabel" name="text_Additional_Comments">
      <property name="text">
       <string>Addtional Comments:</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="2">
+   <item row="8" column="1">
     <widget class="QTextEdit" name="textEdit_Additional_Comments"/>
    </item>
-   <item row="4" column="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="text_Utility">
-       <property name="text">
-        <string>Utility:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="UserInput_Utility"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="text_Utility_PhoneNumber">
-       <property name="text">
-        <string>Utility Phone Number:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="UserInput_Utility_Phone_Number"/>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="2">
+   <item row="0" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="text_Project_Number">
@@ -72,31 +48,157 @@
      </item>
     </layout>
    </item>
-   <item row="3" column="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item row="10" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="QLabel" name="text_Main_Contact_name">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Button_Add_Project">
        <property name="text">
-        <string>Main Contact Name:</string>
+        <string>Add Project</string>
        </property>
       </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="UserInput_Main_Contact_Name"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="text_Main_Contact_PhoneNumber">
-       <property name="text">
-        <string>Main Contact Phone Number</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="UserInput_Main_Contact_PhoneNumber"/>
      </item>
     </layout>
    </item>
-   <item row="5" column="2">
+   <item row="5" column="1">
+    <widget class="QGroupBox" name="groupBox_DueDates">
+     <property name="title">
+      <string>Due Dates</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="UserInput_Description"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="text_Description">
+          <property name="text">
+           <string>Description:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="text_date">
+          <property name="text">
+           <string>Date:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QDateEdit" name="dateEdit"/>
+        </item>
+        <item row="2" column="3">
+         <widget class="QPushButton" name="Button_Add_To_Table_Due_Dates">
+          <property name="text">
+           <string>Add to Table</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QTableWidget" name="tableWidget_Dates">
+          <column>
+           <property name="text">
+            <string>Description</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Due Date</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Contacts</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QLabel" name="text_Contact_name">
+        <property name="text">
+         <string>Contact Name:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="UserInput_Main_Contact_Name"/>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="UserInput_Main_Contact_PhoneNumber"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="text_Contact_PhoneNumber">
+        <property name="text">
+         <string>Contact Phone Number</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Title:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLineEdit" name="lineEdit"/>
+      </item>
+      <item row="0" column="6">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>Main?</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="6">
+       <widget class="QPushButton" name="Button_Add_To_Table_Contacts">
+        <property name="text">
+         <string>Add to Table</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="5">
+       <widget class="QTableWidget" name="tableWidget">
+        <column>
+         <property name="text">
+          <string>Contact Name:</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Contact Phone Number:</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Title:</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="6" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QLabel" name="text_Project_Folder">
@@ -114,20 +216,6 @@
         <string>Browse</string>
        </property>
       </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="6" column="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Due Date:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCalendarWidget" name="calendarWidget"/>
      </item>
     </layout>
    </item>

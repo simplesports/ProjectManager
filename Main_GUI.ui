@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>676</width>
-    <height>651</height>
+    <width>620</width>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,95 +15,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_10">
-      <property name="text">
-       <string>Custom Widget: http://stackoverflow.com/questions/25187444/pyqt-qlistwidget-custom-items</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QGroupBox" name="groupBox_More_Details">
-      <property name="title">
-       <string>More Details</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="3" column="1">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Project Manager:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Adational Notes:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Project Folder:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Main Contact:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0" colspan="2">
-        <widget class="QTextEdit" name="textEdit"/>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Project Name:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="text">
-          <string>Hide</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -115,21 +26,21 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="Button_Add_Project">
           <property name="text">
            <string>Add Project</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="Button_Delete_Project">
           <property name="text">
            <string>Delete Project</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0" colspan="2">
-         <widget class="QListWidget" name="list_Finished_Projects"/>
+         <widget class="QListWidget" name="list_Current_Projects"/>
         </item>
         <item row="2" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout">
@@ -171,10 +82,115 @@
          </widget>
         </item>
         <item row="1" column="0" colspan="2">
-         <widget class="QListWidget" name="list_Finished_Projects_2"/>
+         <widget class="QListWidget" name="list_Finished_Projects"/>
         </item>
        </layout>
       </widget>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QGroupBox" name="groupBox_More_Details">
+      <property name="title">
+       <string>More Details</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="6" column="0">
+        <widget class="QPushButton" name="Button_Hide_Details">
+         <property name="text">
+          <string>Hide Details</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="text_ProjectName_CHANGE">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_ProjectName">
+         <property name="text">
+          <string>Project Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QTextEdit" name="textEdit"/>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_Contacts">
+         <property name="title">
+          <string>Contacts</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="tableWidget_Contacts">
+            <column>
+             <property name="text">
+              <string>Contact Name</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Contact Phone Number</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Title</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="text_ProjectFolder_CHANGE">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Adational Notes:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="text_ProjectFolder">
+         <property name="text">
+          <string>Project Folder:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_dueDates">
+         <property name="title">
+          <string>Due Dates</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="tableWidget_DueDates">
+            <column>
+             <property name="text">
+              <string>Description</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Due Date</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -184,7 +200,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>676</width>
+     <width>620</width>
      <height>21</height>
     </rect>
    </property>
