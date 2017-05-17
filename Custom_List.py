@@ -1,18 +1,21 @@
 import sys
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from Custom_List_GUI import *
 
+import pdb
+
+
 
 
 class CustomList(QWidget):
+
     def __init__(self, parent=None):
         QWidget.__init__(self,parent)
         self.CustomUi = Ui_Custom_List_Widget()
         self.CustomUi.setupUi(self)
 
-        #self.setUpMainUiFunction()
 
     def setUpMainUiFunction(self):
         pass
