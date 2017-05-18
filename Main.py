@@ -25,9 +25,10 @@ class MainWindow(QMainWindow):
         self.MainUi = Ui_MainWindow()
         self.MainUi.setupUi(self)
         self.setUpMainUiFunction()
-        self.LoadProjects()
+        self.LoadCurrentProjects()
         self.loadCustomWidgets()
         self.MainUi.mouseReleaseEvent=self.mousePressEvent
+
 
 
     def setUpMainUiFunction(self):
@@ -41,52 +42,70 @@ class MainWindow(QMainWindow):
 
 
 
-    def LoadProjects(self):
+    def LoadCurrentProjects(self):
         global Projects
         db_filename = '.\DB\ProgramManagerDB.sqlite'
         with sqlite3.connect(db_filename) as conn:
             cursorProject = conn.cursor()
-
+#****************************************************************************************************************************************************************************************************************
             cursorProject.execute(""" select Project, Due_Date from DueDates ORDER BY date(Due_Date) """)
 
-            AllDates = cursorProject.fetchall()
+            curentAllDates = cursorProject.fetchall()
+            now = datetime.datetime.now()
+            dcheck = []
+            for i in curentAllDates:
+                dcheck.append(datetime.datetime.strptime(i[1], '%Y-%m-%d'))
 
-            #for i in AllDates:
-            pdb.set_trace()
+            soonestDeliverable = min(dt for dt in dcheck if dt >= now)
+            Startindex = dcheck.index(soonestDeliverable)
 
-            cursorProject.execute(""" select key,Project_Name, Project_Number, Project_Folder,Add_Comments, Icon from Projects """)
+            currentOrderkey = []
+            for i in range(Startindex, len(dcheck)):
+                currentOrderkey.append(curentAllDates[i][0])
 
-            for row in cursorProject.fetchall():
-                Project = {'Project_Name':[],'Project_Number':[],'Project_Folder':[],'Comments':[],'icon':[]}
-                dueDates = {'Description':[],'Dates':[]}
-                allContacts = {'contactName':[],'contactNumber':[],'title':[]}
-                key,projectName,ProjectNumber,ProjectFolder,Comments,Icon = row
-                Project['Project_Name'].append(projectName)
-                Project['Project_Number'].append(ProjectNumber)
-                Project['Project_Folder'].append(ProjectFolder)
-                Project['Comments'].append(Comments)
-                Project['icon'].append(Icon)
+            currentfinalKeyOrder = []
+            for i in range(0, len(currentOrderkey)):
+                if currentOrderkey[i] in currentfinalKeyOrder:
+                    pass
+                else:
+                    currentfinalKeyOrder.append(currentOrderkey[i])
+            #pdb.set_trace()
+#**************************************************************************************************************************************************************************************************************
 
-                cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber from Contacts where Main_Contact = 1 and Project = ?""", (key,))
-                MaincontactName,MaincontactNumber = cursorProject.fetchone()
 
-                cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber,Title from Contacts where Project = ?""", (key,))
-                for contacts in cursorProject.fetchall():
-                    contactName,contactNumber,title = contacts
-                    allContacts['contactName'].append(contactName)
-                    allContacts['contactNumber'].append(contactNumber)
-                    allContacts['title'].append(title)
+            for key in currentfinalKeyOrder:
+                cursorProject.execute(""" select Project_Name, Project_Number, Project_Folder,Add_Comments, Icon from Projects where key = ? and status = 0 """,(key,))
+                for row in cursorProject.fetchall():
+                    Project = {'Project_Name':[],'Project_Number':[],'Project_Folder':[],'Comments':[],'icon':[]}
+                    dueDates = {'Description':[],'Dates':[]}
+                    allContacts = {'contactName':[],'contactNumber':[],'title':[]}
+                    projectName,ProjectNumber,ProjectFolder,Comments,Icon = row
+                    Project['Project_Name'].append(projectName)
+                    Project['Project_Number'].append(ProjectNumber)
+                    Project['Project_Folder'].append(ProjectFolder)
+                    Project['Comments'].append(Comments)
+                    Project['icon'].append(Icon)
 
-                cursorProject.execute(""" select Description, Due_Date from DueDates where Project = ?""", (key,))
-                for dateRow in cursorProject.fetchall():
-                    Desc,DueDate = dateRow
-                    dueDates['Description'].append(Desc)
-                    dAll = datetime.datetime.strptime(DueDate, '%Y-%m-%d')
-                    dueDates['Dates'].append(dAll)
+                    cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber from Contacts where Main_Contact = 1 and Project = ?""", (key,))
+                    MaincontactName,MaincontactNumber = cursorProject.fetchone()
 
-                Project.update({'MaincontactName':MaincontactName,'MaincontactNumber':MaincontactNumber,'Contacts':allContacts,'Due_Dates':dueDates})
+                    cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber,Title from Contacts where Project = ?""", (key,))
+                    for contacts in cursorProject.fetchall():
+                        contactName,contactNumber,title = contacts
+                        allContacts['contactName'].append(contactName)
+                        allContacts['contactNumber'].append(contactNumber)
+                        allContacts['title'].append(title)
 
-                Projects.update({ProjectNumber:Project})
+                    cursorProject.execute(""" select Description, Due_Date from DueDates where Project = ?""", (key,))
+                    for dateRow in cursorProject.fetchall():
+                        Desc,DueDate = dateRow
+                        dueDates['Description'].append(Desc)
+                        dAll = datetime.datetime.strptime(DueDate, '%Y-%m-%d')
+                        dueDates['Dates'].append(dAll)
+
+                    Project.update({'MaincontactName':MaincontactName,'MaincontactNumber':MaincontactNumber,'Contacts':allContacts,'Due_Dates':dueDates})
+
+                    Projects.update({ProjectNumber:Project})
 
 
             #INSERT INTO "main"."Projects" ("Project_Name","Project_Number","Project_Folder","Add_Comments") VALUES (?1,?2,?3,?4)
@@ -126,13 +145,27 @@ class MainWindow(QMainWindow):
             CustomWidget.setupDate(FinalDueDate)
 
             myQListWidgetItem = QListWidgetItem(self.MainUi.list_Current_Projects)
+            #pdb.set_trace()
             myQListWidgetItem.setSizeHint(CustomWidget.sizeHint())
             self.MainUi.list_Current_Projects.addItem(myQListWidgetItem)
             self.MainUi.list_Current_Projects.setItemWidget(myQListWidgetItem, CustomWidget)
-
+            self._width = self.MainUi.list_Current_Projects.width()+5
+            #self.adjustSize()
 
 
     def item_click(self, message):
+
+        try:
+            while self.MainUi.tableWidget_Contacts.rowCount() > 0:
+                self.MainUi.tableWidget_Contacts.removeRow(0);
+        except:
+            pass
+
+        try:
+            while self.MainUi.tableWidget_DueDates.rowCount() > 0:
+                self.MainUi.tableWidget_DueDates.removeRow(0);
+        except:
+            pass
 
         row = self.MainUi.list_Current_Projects.row(self.MainUi.list_Current_Projects.currentItem())
         project = project_list[row]
@@ -170,9 +203,11 @@ class MainWindow(QMainWindow):
 
     def ShowMoreDetails(self):
         self.MainUi.groupBox_More_Details.show()
+        self.setFixedSize(width*2,height)
 
     def HideDetails(self):
         self.MainUi.groupBox_More_Details.hide()
+        self.setFixedSize(width,height)
 
     def AddProjectsShow(self):
         global NewProjects
@@ -190,10 +225,14 @@ class MainWindow(QMainWindow):
             self.MainUi.groupBox_More_Details.hide()
             self.MainUi.Button_Mark_As_Finish.setEnabled(False)
             self.MainUi.Button_See_More_Details.setEnabled(False)
+            self.setFixedSize(width,height)
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    screen_resolution = app.desktop().screenGeometry()
+    width, height = screen_resolution.width()/5, screen_resolution.height()/2
     MainWindow = MainWindow()
+    MainWindow.resize(width,height)
     MainWindow.show()
     sys.exit(app.exec_())

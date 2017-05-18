@@ -50,7 +50,7 @@
       <property name="childrenCollapsible">
        <bool>true</bool>
       </property>
-      <widget class="QTabWidget" name="tabWidget">
+      <widget class="QTabWidget" name="tabWidge">
        <property name="currentIndex">
         <number>0</number>
        </property>
@@ -87,6 +87,34 @@
            </item>
            <item>
             <widget class="QPushButton" name="Button_Mark_As_Finish">
+             <property name="text">
+              <string>Mark as Finished</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_Past_Due_Projects">
+        <attribute name="title">
+         <string>Past Due Projects</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_7">
+         <item row="1" column="0">
+          <widget class="QListWidget" name="list_Past_Due_Projects"/>
+         </item>
+         <item row="2" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="Button_See_More_Details_Past_Due">
+             <property name="text">
+              <string>See More Details</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="Button_Mark_As_Finish_Past_Due">
              <property name="text">
               <string>Mark as Finished</string>
              </property>
