@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
+    <item row="0" column="0">
      <widget class="QSplitter" name="splitter">
       <property name="enabled">
        <bool>true</bool>
@@ -79,16 +79,16 @@
          <item row="2" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QPushButton" name="Button_See_More_Details">
+            <widget class="QPushButton" name="Button_Mark_As_Finish">
              <property name="text">
-              <string>See More Details</string>
+              <string>Mark as Finished</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="Button_Mark_As_Finish">
+            <widget class="QPushButton" name="Button_See_More_Details">
              <property name="text">
-              <string>Mark as Finished</string>
+              <string>See More Details</string>
              </property>
             </widget>
            </item>
@@ -107,16 +107,16 @@
          <item row="2" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPushButton" name="Button_See_More_Details_Past_Due">
+            <widget class="QPushButton" name="Button_Mark_As_Finish_Past_Due">
              <property name="text">
-              <string>See More Details</string>
+              <string>Mark as Finished</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="Button_Mark_As_Finish_Past_Due">
+            <widget class="QPushButton" name="Button_See_More_Details_Past_Due">
              <property name="text">
-              <string>Mark as Finished</string>
+              <string>See More Details</string>
              </property>
             </widget>
            </item>
@@ -142,16 +142,16 @@
          <item row="2" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QPushButton" name="Button_Finished_Projects_See_More_Details">
+            <widget class="QPushButton" name="Button_Finished_Projects_Mark_as_Current">
              <property name="text">
-              <string>See More Details</string>
+              <string>Mark as Current</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="Button_Finished_Projects_Mark_as_Current">
+            <widget class="QPushButton" name="Button_Finished_Projects_See_More_Details">
              <property name="text">
-              <string>Mark as Current</string>
+              <string>See More Details</string>
              </property>
             </widget>
            </item>
