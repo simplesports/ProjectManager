@@ -90,13 +90,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="text_date">
-          <property name="text">
-           <string>Date:</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="3">
          <widget class="QDateEdit" name="dateEdit"/>
         </item>
@@ -104,6 +97,13 @@
          <widget class="QPushButton" name="Button_Add_To_Table_Due_Dates">
           <property name="text">
            <string>Add to Table</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="text_date">
+          <property name="text">
+           <string>Date:</string>
           </property>
          </widget>
         </item>
@@ -139,23 +139,23 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="UserInput_Main_Contact_Name"/>
-      </item>
       <item row="0" column="3">
        <widget class="QLineEdit" name="UserInput_Main_Contact_PhoneNumber"/>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="text_Contact_PhoneNumber">
-        <property name="text">
-         <string>Contact Phone Number:</string>
-        </property>
-       </widget>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="UserInput_Main_Contact_Name"/>
       </item>
       <item row="0" column="6">
        <widget class="QCheckBox" name="checkBox">
         <property name="text">
          <string>Main?</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="text_Contact_PhoneNumber">
+        <property name="text">
+         <string>Contact Phone Number:</string>
         </property>
        </widget>
       </item>
@@ -166,7 +166,37 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1" colspan="5">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Title:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="UserInput_Title"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Company:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="UserInput_Company"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="text_Email">
+        <property name="text">
+         <string>Email:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="3">
+       <widget class="QLineEdit" name="UserInput_Email"/>
+      </item>
+      <item row="3" column="1" colspan="5">
        <widget class="QTableWidget" name="tableWidget_Contacts">
         <column>
          <property name="text">
@@ -190,30 +220,22 @@
         </column>
         <column>
          <property name="text">
+          <string>Email</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
           <string>Main Contact</string>
          </property>
         </column>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label">
+      <item row="2" column="6">
+       <widget class="QPushButton" name="Button_Remove">
         <property name="text">
-         <string>Title:</string>
+         <string>Remove</string>
         </property>
        </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="UserInput_Title"/>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Company:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLineEdit" name="UserInput_Company"/>
       </item>
      </layout>
     </widget>

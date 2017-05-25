@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
                 for row in cursorProject.fetchall():
                     Project = {'Project_Name':[],'Project_Number':[],'Project_Folder':[],'Comments':[],'icon':[]}
                     dueDates = {'Description':[],'Dates':[]}
-                    allContacts = {'contactName':[],'contactNumber':[],'title':[], 'company':[]}
+                    allContacts = {'contactName':[],'contactNumber':[],'title':[], 'company':[],'email':[]}
                     projectName,ProjectNumber,ProjectFolder,Comments,Icon = row
                     Project['Project_Name'].append(projectName)
                     Project['Project_Number'].append(ProjectNumber)
@@ -109,13 +109,14 @@ class MainWindow(QMainWindow):
                     cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber from Contacts where Main_Contact = 1 and Project = ?""", (key,))
                     MaincontactName,MaincontactNumber = cursorProject.fetchone()
 
-                    cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber,Title,company from Contacts where Project = ?""", (key,))
+                    cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber,Title,company,email from Contacts where Project = ?""", (key,))
                     for contacts in cursorProject.fetchall():
-                        contactName,contactNumber,title,company = contacts
+                        contactName,contactNumber,title,company,email = contacts
                         allContacts['contactName'].append(contactName)
                         allContacts['contactNumber'].append(contactNumber)
                         allContacts['title'].append(title)
                         allContacts['company'].append(company)
+                        allContacts['email'].append(email)
 
                     cursorProject.execute(""" select Description, Due_Date from DueDates where Project = ?""", (key,))
                     for dateRow in cursorProject.fetchall():
@@ -169,7 +170,7 @@ class MainWindow(QMainWindow):
                 for row in cursorProject.fetchall():
                     Project = {'Project_Name':[],'Project_Number':[],'Project_Folder':[],'Comments':[],'icon':[]}
                     dueDates = {'Description':[],'Dates':[]}
-                    allContacts = {'contactName':[],'contactNumber':[],'title':[],'company':[]}
+                    allContacts = {'contactName':[],'contactNumber':[],'title':[],'company':[],'email':[]}
                     projectName,ProjectNumber,ProjectFolder,Comments,Icon = row
                     Project['Project_Name'].append(projectName)
                     Project['Project_Number'].append(ProjectNumber)
@@ -180,13 +181,14 @@ class MainWindow(QMainWindow):
                     cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber from Contacts where Main_Contact = 1 and Project = ?""", (key,))
                     MaincontactName,MaincontactNumber = cursorProject.fetchone()
 
-                    cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber,Title,company from Contacts where Project = ?""", (key,))
+                    cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber,Title,company,email from Contacts where Project = ?""", (key,))
                     for contacts in cursorProject.fetchall():
-                        contactName,contactNumber,title,company = contacts
+                        contactName,contactNumber,title,company,email = contacts
                         allContacts['contactName'].append(contactName)
                         allContacts['contactNumber'].append(contactNumber)
                         allContacts['title'].append(title)
                         allContacts['company'].append(company)
+                        allContacts['email'].append(email)
 
                     cursorProject.execute(""" select Description, Due_Date from DueDates where Project = ?""", (key,))
                     for dateRow in cursorProject.fetchall():
@@ -213,7 +215,7 @@ class MainWindow(QMainWindow):
             for row in cursorProject.fetchall():
                 Project = {'Project_Name':[],'Project_Number':[],'Project_Folder':[],'Comments':[],'icon':[]}
                 dueDates = {'Description':[],'Dates':[]}
-                allContacts = {'contactName':[],'contactNumber':[],'title':[],'company':[]}
+                allContacts = {'contactName':[],'contactNumber':[],'title':[],'company':[],'email':[]}
                 key,projectName,ProjectNumber,ProjectFolder,Comments,Icon = row
                 Project['Project_Name'].append(projectName)
                 Project['Project_Number'].append(ProjectNumber)
@@ -228,13 +230,14 @@ class MainWindow(QMainWindow):
                     MaincontactName = 'None Listed'
                     MaincontactNumber = 'None Listed'
 
-                cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber,Title,company from Contacts where Project = ?""", (key,))
+                cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber,Title,company,email from Contacts where Project = ?""", (key,))
                 for contacts in cursorProject.fetchall():
-                    contactName,contactNumber,title,company = contacts
+                    contactName,contactNumber,title,company,email = contacts
                     allContacts['contactName'].append(contactName)
                     allContacts['contactNumber'].append(contactNumber)
                     allContacts['title'].append(title)
                     allContacts['company'].append(company)
+                    allContacts['email'].append(email)
 
                 cursorProject.execute(""" select Description, Due_Date from DueDates where Project = ?""", (key,))
                 for dateRow in cursorProject.fetchall():
@@ -412,6 +415,7 @@ class MainWindow(QMainWindow):
                 self.MainUi.tableWidget_Contacts.setItem(i, 1, QTableWidgetItem(currentProjects[project]['Contacts']['contactNumber'][i]))
                 self.MainUi.tableWidget_Contacts.setItem(i, 2, QTableWidgetItem(currentProjects[project]['Contacts']['title'][i]))
                 self.MainUi.tableWidget_Contacts.setItem(i, 3, QTableWidgetItem(currentProjects[project]['Contacts']['company'][i]))
+                self.MainUi.tableWidget_Contacts.setItem(i, 4, QTableWidgetItem(currentProjects[project]['Contacts']['email'][i]))
 
             for i in range(0,len(currentProjects[project]['Due_Dates']['Dates'])):
                 self.MainUi.tableWidget_DueDates.insertRow(i)
@@ -449,6 +453,7 @@ class MainWindow(QMainWindow):
                 self.MainUi.tableWidget_Contacts.setItem(i, 1, QTableWidgetItem(overDueProjects[project]['Contacts']['contactNumber'][i]))
                 self.MainUi.tableWidget_Contacts.setItem(i, 2, QTableWidgetItem(overDueProjects[project]['Contacts']['title'][i]))
                 self.MainUi.tableWidget_Contacts.setItem(i, 3, QTableWidgetItem(overDueProjects[project]['Contacts']['company'][i]))
+                self.MainUi.tableWidget_Contacts.setItem(i, 4, QTableWidgetItem(overDueProjects[project]['Contacts']['email'][i]))
 
             for i in range(0,len(overDueProjects[project]['Due_Dates']['Dates'])):
                 self.MainUi.tableWidget_DueDates.insertRow(i)
@@ -486,6 +491,7 @@ class MainWindow(QMainWindow):
                 self.MainUi.tableWidget_Contacts.setItem(i, 1, QTableWidgetItem(Finished_Projects[project]['Contacts']['contactNumber'][i]))
                 self.MainUi.tableWidget_Contacts.setItem(i, 2, QTableWidgetItem(Finished_Projects[project]['Contacts']['title'][i]))
                 self.MainUi.tableWidget_Contacts.setItem(i, 3, QTableWidgetItem(Finished_Projects[project]['Contacts']['company'][i]))
+                self.MainUi.tableWidget_Contacts.setItem(i, 4, QTableWidgetItem(Finished_Projects[project]['Contacts']['email'][i]))
 
             for i in range(0,len(Finished_Projects[project]['Due_Dates']['Dates'])):
                 self.MainUi.tableWidget_DueDates.insertRow(i)

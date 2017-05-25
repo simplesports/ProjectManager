@@ -24,6 +24,7 @@ class AddProjects(QWidget):
         contactNumber = self.AddProjects.UserInput_Main_Contact_PhoneNumber.text()
         title = self.AddProjects.UserInput_Title.text()
         company = self.AddProjects.UserInput_Company.text()
+        email = self.AddProjects.UserInput_Email.text()
 
         if self.AddProjects.checkBox.isChecked():
             mainContact = 'Yes'
@@ -38,7 +39,8 @@ class AddProjects(QWidget):
         self.AddProjects.tableWidget_Contacts.setItem(rowPosition,1,QTableWidgetItem(contactNumber))
         self.AddProjects.tableWidget_Contacts.setItem(rowPosition,2,QTableWidgetItem(title))
         self.AddProjects.tableWidget_Contacts.setItem(rowPosition,3,QTableWidgetItem(company))
-        self.AddProjects.tableWidget_Contacts.setItem(rowPosition,4,QTableWidgetItem(mainContact))
+        self.AddProjects.tableWidget_Contacts.setItem(rowPosition,4,QTableWidgetItem(email))
+        self.AddProjects.tableWidget_Contacts.setItem(rowPosition,5,QTableWidgetItem(mainContact))
 
     def addDates(self):
         Description = self.AddProjects.UserInput_Description.text()
