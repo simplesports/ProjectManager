@@ -80,48 +80,83 @@
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="UserInput_Description"/>
-        </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="text_Description">
-          <property name="text">
-           <string>Description:</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="text_Description">
+            <property name="text">
+             <string>Description:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="UserInput_Description"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="text_date">
+            <property name="text">
+             <string>Date:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="dateEdit"/>
+          </item>
+         </layout>
         </item>
-        <item row="1" column="3">
-         <widget class="QDateEdit" name="dateEdit"/>
-        </item>
-        <item row="2" column="3">
-         <widget class="QPushButton" name="Button_Add_To_Table_Due_Dates">
-          <property name="text">
-           <string>Add to Table</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="text_date">
-          <property name="text">
-           <string>Date:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QTableWidget" name="tableWidget_Dates">
-          <column>
-           <property name="text">
-            <string>Description</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Due Date</string>
-           </property>
-          </column>
-         </widget>
+        <item row="2" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Button_Dates_Update_Table">
+            <property name="text">
+             <string>Update Table</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Button_Dates_Remove">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Button_Add_To_Table_Due_Dates">
+            <property name="text">
+             <string>Add to Table</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
+      </item>
+      <item row="1" column="0">
+       <widget class="QTableWidget" name="tableWidget_Dates">
+        <column>
+         <property name="text">
+          <string>Description</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Due Date</string>
+         </property>
+        </column>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -139,12 +174,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="UserInput_Main_Contact_PhoneNumber"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="UserInput_Main_Contact_Name"/>
-      </item>
       <item row="0" column="6">
        <widget class="QCheckBox" name="checkBox">
         <property name="text">
@@ -159,10 +188,13 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="6">
-       <widget class="QPushButton" name="Button_Add_To_Table_Contacts">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="UserInput_Main_Contact_Name"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="text_Email">
         <property name="text">
-         <string>Add to Table</string>
+         <string>Email:</string>
         </property>
        </widget>
       </item>
@@ -173,9 +205,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="UserInput_Title"/>
-      </item>
       <item row="1" column="2">
        <widget class="QLabel" name="label_2">
         <property name="text">
@@ -183,20 +212,10 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QLineEdit" name="UserInput_Company"/>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="UserInput_Title"/>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="text_Email">
-        <property name="text">
-         <string>Email:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="3">
-       <widget class="QLineEdit" name="UserInput_Email"/>
-      </item>
-      <item row="3" column="1" colspan="5">
+      <item row="5" column="1" colspan="5">
        <widget class="QTableWidget" name="tableWidget_Contacts">
         <column>
          <property name="text">
@@ -230,12 +249,48 @@
         </column>
        </widget>
       </item>
-      <item row="2" column="6">
-       <widget class="QPushButton" name="Button_Remove">
+      <item row="4" column="6">
+       <widget class="QPushButton" name="Button_Add_To_Table_Contacts">
+        <property name="text">
+         <string>Add to Table</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="4">
+       <widget class="QPushButton" name="Button_Contacts_Remove">
         <property name="text">
          <string>Remove</string>
         </property>
        </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QPushButton" name="Button_Contacts_Update_Table">
+        <property name="text">
+         <string>Update Table</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="4">
+       <widget class="QLineEdit" name="UserInput_Email"/>
+      </item>
+      <item row="1" column="3" colspan="2">
+       <widget class="QLineEdit" name="UserInput_Company"/>
+      </item>
+      <item row="0" column="3" colspan="2">
+       <widget class="QLineEdit" name="UserInput_Main_Contact_PhoneNumber"/>
+      </item>
+      <item row="4" column="0" colspan="3">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
