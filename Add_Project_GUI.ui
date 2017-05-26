@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Add a New Project :-)</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="7" column="1">
@@ -120,6 +120,13 @@
            </spacer>
           </item>
           <item>
+           <widget class="QPushButton" name="Button_Add_To_Table_Due_Dates">
+            <property name="text">
+             <string>Add to Table</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="Button_Dates_Update_Table">
             <property name="text">
              <string>Update Table</string>
@@ -133,19 +140,24 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="Button_Add_To_Table_Due_Dates">
-            <property name="text">
-             <string>Add to Table</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
        </layout>
       </item>
       <item row="1" column="0">
        <widget class="QTableWidget" name="tableWidget_Dates">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="dragDropOverwriteMode">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
         <column>
          <property name="text">
           <string>Description</string>
@@ -174,7 +186,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
+      <item row="0" column="7">
        <widget class="QCheckBox" name="checkBox">
         <property name="text">
          <string>Main?</string>
@@ -215,8 +227,20 @@
       <item row="1" column="1">
        <widget class="QLineEdit" name="UserInput_Title"/>
       </item>
-      <item row="5" column="1" colspan="5">
+      <item row="7" column="1" colspan="6">
        <widget class="QTableWidget" name="tableWidget_Contacts">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="dragDropOverwriteMode">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
         <column>
          <property name="text">
           <string>Contact Name:</string>
@@ -249,48 +273,52 @@
         </column>
        </widget>
       </item>
-      <item row="4" column="6">
-       <widget class="QPushButton" name="Button_Add_To_Table_Contacts">
-        <property name="text">
-         <string>Add to Table</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="4">
-       <widget class="QPushButton" name="Button_Contacts_Remove">
-        <property name="text">
-         <string>Remove</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3">
-       <widget class="QPushButton" name="Button_Contacts_Update_Table">
-        <property name="text">
-         <string>Update Table</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="4">
-       <widget class="QLineEdit" name="UserInput_Email"/>
-      </item>
-      <item row="1" column="3" colspan="2">
+      <item row="1" column="3" colspan="4">
        <widget class="QLineEdit" name="UserInput_Company"/>
       </item>
-      <item row="0" column="3" colspan="2">
+      <item row="3" column="1" colspan="6">
+       <widget class="QLineEdit" name="UserInput_Email"/>
+      </item>
+      <item row="0" column="3" colspan="4">
        <widget class="QLineEdit" name="UserInput_Main_Contact_PhoneNumber"/>
       </item>
-      <item row="4" column="0" colspan="3">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+      <item row="6" column="0" colspan="8">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="Button_Add_To_Table_Contacts">
+          <property name="text">
+           <string>Add to Table</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="Button_Contacts_Update_Table">
+          <property name="text">
+           <string>Update Table</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="Button_Contacts_Remove">
+          <property name="text">
+           <string>Remove</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

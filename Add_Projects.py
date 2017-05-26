@@ -1,4 +1,5 @@
 import sys
+from os.path import expanduser
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -21,6 +22,8 @@ class AddProjects(QWidget):
         self.AddProjects.Button_Add_To_Table_Due_Dates.clicked.connect(self.addDates)
         self.AddProjects.Button_Add_Project.clicked.connect(self.addProject)
         self.AddProjects.Button_Contacts_Remove.clicked.connect(self.removeContact)
+        self.AddProjects.Button_Dates_Remove.clicked.connect(self.removeDate)
+        self.AddProjects.Button_Browse.clicked.connect(self.browse)
 
         self.AddProjects.dateEdit.setCalendarPopup(True)
         dt = datetime.date.today()
@@ -55,9 +58,12 @@ class AddProjects(QWidget):
             self.AddProjects.tableWidget_Contacts.setItem(rowPosition,5,QTableWidgetItem(mainContact))
 
     def removeContact(self):
-        #Change it to select the whole row when clicked
-        indices = self.AddProjects.tableWidget_Contacts.selectionModel().selectedRows()
-        for index in sorted(indices):
+        index_list = []
+        for model_index in self.AddProjects.tableWidget_Contacts.selectionModel().selectedRows():
+            index = QPersistentModelIndex(model_index)
+            index_list.append(index)
+
+        for index in index_list:
             self.AddProjects.tableWidget_Contacts.removeRow(index.row())
 
     def addDates(self):
@@ -72,7 +78,24 @@ class AddProjects(QWidget):
         self.AddProjects.tableWidget_Dates.setItem(rowPosition,1, QTableWidgetItem(date))
 
     def removeDate(self):
-        pass
+        index_list = []
+        for model_index in self.AddProjects.tableWidget_Dates.selectionModel().selectedRows():
+            index = QPersistentModelIndex(model_index)
+            index_list.append(index)
+
+        for index in index_list:
+            self.AddProjects.tableWidget_Dates.removeRow(index.row())
+
+    def browse(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        options |= QFileDialog.ShowDirsOnly
+        try:
+            my_dir = QFileDialog.getExistingDirectory(self,"Open File", expanduser("~"), options=options)
+        except:
+            pass
+
+        self.AddProjects.UserInput_Project_Folder.setText(my_dir)
 
     def addProject(self):
         check = self.checksToAddProject()
