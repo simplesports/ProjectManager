@@ -105,28 +105,28 @@ class AddProjects(QWidget):
     def checksToAddProject(self):
 
         if self.AddProjects.tableWidget_Dates.rowCount() < 1:
-            print('need to add at least one date')
+            QMessageBox.about(self, "No Dates", "You need to add at least one date")
             return False
 
         if len(self.AddProjects.UserInput_Project_Number.text()) < 1:
-            print('need to add project Number')
+            QMessageBox.about(self, "No Project Number", "You need to type in a project Number")
             return False
         else:
             try:
                 val = float(self.AddProjects.UserInput_Project_Number.text())
             except:
-                print('The project number needs to be a number')
+                QMessageBox.about(self, "No Project Number", "The Project Number has to actually be a number")
                 return False
 
         if len(self.AddProjects.UserInput_Project_Name.text()) < 1:
-            print('need to add Project name')
+            QMessageBox.about(self, "No Project Name", "The Project needs a name")
             return False
 
         return True
 
     def checkContactsAdd(self):
         if len(self.AddProjects.UserInput_Main_Contact_Name.text()) < 1:
-            print('Need to have a contactName')
+            QMessageBox.about(self, "No Project Name", "The contact needs a name, or how do you know who you will be calling!")
             return False
 
         return True

@@ -60,6 +60,7 @@ class MainWindow(QMainWindow):
         self.MainUi.Button_Finished_Projects_See_More_Details.clicked.connect(self.ShowMoreDetails)
         self.MainUi.Button_Hide_Details.clicked.connect(self.HideDetails)
         self.MainUi.Button_Add_Project.clicked.connect(self.AddProjectsShow)
+        self.MainUi.Button_Mark_As_Finish.clicked.connect(self.markAsFinished)
 
 
 
@@ -349,8 +350,12 @@ class MainWindow(QMainWindow):
             contactNumber = Finished_Projects[i]['MaincontactNumber']
 
             now = datetime.datetime.now()
-            NextDeliverableCheck = min(dt for dt in Finished_Projects[i]['Due_Dates']['Dates'] if dt < now)
-            NextDeliverableSTR = NextDeliverableCheck.strftime("%m/%d/%Y")
+            try:
+                NextDeliverableCheck = min(dt for dt in Finished_Projects[i]['Due_Dates']['Dates'] if dt < now)
+                NextDeliverableSTR = NextDeliverableCheck.strftime("%m/%d/%Y")
+            except:
+                NextDeliverableSTR = 'error'
+
             oldest = max(Finished_Projects[i]['Due_Dates']['Dates'])
             FinalDueDate = oldest.strftime("%m/%d/%Y")
             #pdb.set_trace()
@@ -518,6 +523,35 @@ class MainWindow(QMainWindow):
         NewProjects = AddProjects()
         NewProjects.show()
         #return NewProjects
+
+    def markAsFinished(self):
+        global currentProjects
+        global overDueProjects
+        global Finished_Projects
+
+        currentProjects = {}
+        overDueProjects = {}
+        Finished_Projects = {}
+
+        row = self.MainUi.list_Current_Projects.row(self.MainUi.list_Current_Projects.currentItem())
+        key = currentfinalKeyOrder[row]
+
+        self.MainUi.list_Current_Projects.clear()
+        self.MainUi.list_Past_Due_Projects.clear()
+        self.MainUi.list_Finished_Projects.clear()
+
+        db_filename = '.\DB\ProgramManagerDB.sqlite'
+        with sqlite3.connect(db_filename) as conn:
+            cursorProject = conn.cursor()
+            cursorProject.execute(""" UPDATE Projects SET status=1 WHERE key=? """, (key,))
+
+        self.LoadCurrentProjects()
+        self.loadOverDueProjects()
+        self.loadFinishedProjects()
+
+        self.loadCurrentCustomWidgets()
+        self.loadOverDueCustomWidget()
+        self.load_Finished_CustomWidget()
 
 
     def mousePressEvent(self, event):
