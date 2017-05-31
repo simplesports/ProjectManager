@@ -60,7 +60,9 @@ class MainWindow(QMainWindow):
         self.MainUi.Button_Finished_Projects_See_More_Details.clicked.connect(self.ShowMoreDetails)
         self.MainUi.Button_Hide_Details.clicked.connect(self.HideDetails)
         self.MainUi.Button_Add_Project.clicked.connect(self.AddProjectsShow)
-        self.MainUi.Button_Mark_As_Finish.clicked.connect(self.markAsFinished)
+        self.MainUi.Button_Mark_As_Finish.clicked.connect(self.changeStatus)
+        self.MainUi.Button_Finished_Projects_Mark_as_Current.clicked.connect(self.changeStatus)
+        self.MainUi.Button_Mark_As_Finish_Past_Due.clicked.connect(self.changeStatus)
 
 
 
@@ -136,6 +138,7 @@ class MainWindow(QMainWindow):
     def loadOverDueProjects(self):
         global overDueProjects
         global currentfinalKeyOrder
+        global overDueKeyList
         db_filename = '.\DB\ProgramManagerDB.sqlite'
         with sqlite3.connect(db_filename) as conn:
             cursorProject = conn.cursor()
@@ -206,6 +209,8 @@ class MainWindow(QMainWindow):
     def loadFinishedProjects(self):
         global overDueProjects
         global currentfinalKeyOrder
+        global finishedKeyList
+        finishedKeyList = []
         db_filename = '.\DB\ProgramManagerDB.sqlite'
         with sqlite3.connect(db_filename) as conn:
             cursorProject = conn.cursor()
@@ -223,6 +228,7 @@ class MainWindow(QMainWindow):
                 Project['Project_Folder'].append(ProjectFolder)
                 Project['Comments'].append(Comments)
                 Project['icon'].append(Icon)
+
 
                 cursorProject.execute(""" select Contact_Name, Contact_PhoneNumber from Contacts where Main_Contact = 1 and Project = ?""", (key,))
                 try:
@@ -250,6 +256,7 @@ class MainWindow(QMainWindow):
                 Project.update({'MaincontactName':MaincontactName,'MaincontactNumber':MaincontactNumber,'Contacts':allContacts,'Due_Dates':dueDates})
 
                 Finished_Projects.update({ProjectNumber:Project})
+                finishedKeyList.append(key)
 
 
     def loadCurrentCustomWidgets(self):
@@ -524,7 +531,30 @@ class MainWindow(QMainWindow):
         NewProjects.show()
         #return NewProjects
 
-    def markAsFinished(self):
+    def changeStatus(self):
+        db_filename = '.\DB\ProgramManagerDB.sqlite'
+        with sqlite3.connect(db_filename) as conn:
+            cursorProject = conn.cursor()
+
+            if self.MainUi.tabWidge.currentIndex() == 0:
+                row = self.MainUi.list_Current_Projects.row(self.MainUi.list_Current_Projects.currentItem())
+                key = currentfinalKeyOrder[row]
+                cursorProject.execute(""" UPDATE Projects SET status=1 WHERE key=? """, (key,))
+
+            elif self.MainUi.tabWidge.currentIndex() == 1:
+                row = self.MainUi.list_Past_Due_Projects.row(self.MainUi.list_Past_Due_Projects.currentItem())
+                key = overDueKeyList[row]
+                cursorProject.execute(""" UPDATE Projects SET status=1 WHERE key=? """, (key,))
+
+            elif self.MainUi.tabWidge.currentIndex() == 2:
+                row = self.MainUi.list_Finished_Projects.row(self.MainUi.list_Finished_Projects.currentItem())
+                key = finishedKeyList[row]
+                cursorProject.execute(""" UPDATE Projects SET status=0 WHERE key=? """, (key,))
+
+        self.refresh()
+
+
+    def refresh(self):
         global currentProjects
         global overDueProjects
         global Finished_Projects
@@ -533,17 +563,9 @@ class MainWindow(QMainWindow):
         overDueProjects = {}
         Finished_Projects = {}
 
-        row = self.MainUi.list_Current_Projects.row(self.MainUi.list_Current_Projects.currentItem())
-        key = currentfinalKeyOrder[row]
-
         self.MainUi.list_Current_Projects.clear()
         self.MainUi.list_Past_Due_Projects.clear()
         self.MainUi.list_Finished_Projects.clear()
-
-        db_filename = '.\DB\ProgramManagerDB.sqlite'
-        with sqlite3.connect(db_filename) as conn:
-            cursorProject = conn.cursor()
-            cursorProject.execute(""" UPDATE Projects SET status=1 WHERE key=? """, (key,))
 
         self.LoadCurrentProjects()
         self.loadOverDueProjects()
@@ -552,7 +574,6 @@ class MainWindow(QMainWindow):
         self.loadCurrentCustomWidgets()
         self.loadOverDueCustomWidget()
         self.load_Finished_CustomWidget()
-
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
