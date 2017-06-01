@@ -4,12 +4,15 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from Add_Project_GUI import *
+from Main import *
 import datetime
 import pdb
 
 
 
 class AddProjects(QWidget):
+    signal = pyqtSignal()
+
     def __init__(self, parent=None):
         QWidget.__init__(self,parent)
         self.AddProjects = Ui_Add_Projects()
@@ -96,11 +99,13 @@ class AddProjects(QWidget):
             pass
 
         self.AddProjects.UserInput_Project_Folder.setText(my_dir)
-
+        
+    @pyqtSlot()
     def addProject(self):
         check = self.checksToAddProject()
         if check == True:
             print('Project was added')
+            self.signal.emit()
 
     def checksToAddProject(self):
 

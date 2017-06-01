@@ -64,6 +64,9 @@ class MainWindow(QMainWindow):
         self.MainUi.Button_Finished_Projects_Mark_as_Current.clicked.connect(self.changeStatus)
         self.MainUi.Button_Mark_As_Finish_Past_Due.clicked.connect(self.changeStatus)
 
+        self.MainUi.tabWidge.currentChanged.connect(self.changeTab)
+
+
 
 
     def LoadCurrentProjects(self):
@@ -528,6 +531,7 @@ class MainWindow(QMainWindow):
     def AddProjectsShow(self):
         global NewProjects
         NewProjects = AddProjects()
+        NewProjects.signal.connect(self.refresh)
         NewProjects.show()
         #return NewProjects
 
@@ -575,6 +579,19 @@ class MainWindow(QMainWindow):
         self.loadOverDueCustomWidget()
         self.load_Finished_CustomWidget()
 
+    def changeTab(self):
+        self.MainUi.list_Current_Projects.clearSelection()
+        self.MainUi.list_Past_Due_Projects.clearSelection()
+        self.MainUi.list_Finished_Projects.clearSelection()
+        self.MainUi.groupBox_More_Details.hide()
+        self.MainUi.Button_Mark_As_Finish.setEnabled(False)
+        self.MainUi.Button_See_More_Details.setEnabled(False)
+        self.MainUi.Button_Mark_As_Finish_Past_Due.setEnabled(False)
+        self.MainUi.Button_See_More_Details_Past_Due.setEnabled(False)
+        self.MainUi.Button_Finished_Projects_Mark_as_Current.setEnabled(False)
+        self.MainUi.Button_Finished_Projects_See_More_Details.setEnabled(False)
+        self.setFixedSize(width,height)
+
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self.MainUi.list_Current_Projects.clearSelection()
@@ -588,6 +605,9 @@ class MainWindow(QMainWindow):
             self.MainUi.Button_Finished_Projects_Mark_as_Current.setEnabled(False)
             self.MainUi.Button_Finished_Projects_See_More_Details.setEnabled(False)
             self.setFixedSize(width,height)
+
+    def test(self,message):
+        print(message)
 
 
 if __name__ == "__main__":
