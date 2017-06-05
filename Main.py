@@ -55,6 +55,10 @@ class MainWindow(QMainWindow):
         self.MainUi.list_Current_Projects.itemClicked.connect(self.Custom_Widget_click)
         self.MainUi.list_Past_Due_Projects.itemClicked.connect(self.Custom_Widget_click)
         self.MainUi.list_Finished_Projects.itemClicked.connect(self.Custom_Widget_click)
+        self.MainUi.list_Current_Projects.doubleClicked.connect(self.editProject)
+        self.MainUi.list_Past_Due_Projects.doubleClicked.connect(self.editProject)
+        self.MainUi.list_Finished_Projects.doubleClicked.connect(self.editProject)
+
         self.MainUi.Button_See_More_Details.clicked.connect(self.ShowMoreDetails)
         self.MainUi.Button_See_More_Details_Past_Due.clicked.connect(self.ShowMoreDetails)
         self.MainUi.Button_Finished_Projects_See_More_Details.clicked.connect(self.ShowMoreDetails)
@@ -65,8 +69,6 @@ class MainWindow(QMainWindow):
         self.MainUi.Button_Mark_As_Finish_Past_Due.clicked.connect(self.changeStatus)
 
         self.MainUi.tabWidge.currentChanged.connect(self.changeTab)
-
-
 
 
     def LoadCurrentProjects(self):
@@ -532,6 +534,8 @@ class MainWindow(QMainWindow):
         global NewProjects
         NewProjects = AddProjects()
         NewProjects.signal.connect(self.refresh)
+        #NewProjects.setProjectName('Test Name')
+        #NewProjects.setProjectNumber('123456789')
         NewProjects.show()
         #return NewProjects
 
@@ -592,6 +596,13 @@ class MainWindow(QMainWindow):
         self.MainUi.Button_Finished_Projects_See_More_Details.setEnabled(False)
         self.setFixedSize(width,height)
 
+    def editProject(self):
+        print('Edit project function')
+        global NewProjects
+        NewProjects = AddProjects()
+        NewProjects.signal.connect(self.refresh)
+        NewProjects.show()
+
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self.MainUi.list_Current_Projects.clearSelection()
@@ -606,8 +617,6 @@ class MainWindow(QMainWindow):
             self.MainUi.Button_Finished_Projects_See_More_Details.setEnabled(False)
             self.setFixedSize(width,height)
 
-    def test(self,message):
-        print(message)
 
 
 if __name__ == "__main__":

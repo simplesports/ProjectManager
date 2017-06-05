@@ -99,13 +99,26 @@ class AddProjects(QWidget):
             pass
 
         self.AddProjects.UserInput_Project_Folder.setText(my_dir)
-        
+
     @pyqtSlot()
     def addProject(self):
         check = self.checksToAddProject()
         if check == True:
-            print('Project was added')
-            self.signal.emit()
+            db_filename = '.\DB\ProgramManagerDB.sqlite'
+            with sqlite3.connect(db_filename) as conn:
+                cursorProject = conn.cursor()
+                if self.AddProjects.Button_Add_Project.text() == 'Update Project':
+                    pass
+                else:
+                    #print('Project was added')
+                    PName = self.AddProjects.UserInput_Project_Name.text()
+                    PNumber = self.AddProjects.UserInput_Project_Number.text()
+                    PFolder = self.AddProjects.UserInput_Project_Folder.text()
+                    addComments = self.AddProjects.textEdit_Additional_Comments.toPlainText()
+                    icon = None
+                    cursorProject.execute(""" INSERT INTO  Projects(Project_Name,Project_Number,Project_Folder,Add_Comments,Icon,status) VALUES (?,?,?,?,?,?)""",(PName,PNumber,PFolder,addComments,icon,0))
+                    self.signal.emit()
+                    self.close()
 
     def checksToAddProject(self):
 
@@ -135,3 +148,27 @@ class AddProjects(QWidget):
             return False
 
         return True
+
+    def setProjectNumber(self,projectNumber):
+        self.AddProjects.UserInput_Project_Number.setText(projectNumber)
+
+    def setProjectName(self,projectName):
+        self.AddProjects.UserInput_Project_Name.setText(projectName)
+
+    def setContacts(self):
+        pass
+
+    def setDueDates(self):
+        pass
+
+    def setProjectFolder(self):
+        pass
+
+    def setAddComments(self):
+        pass
+
+    def setTitle(self):
+        pass
+
+    def setButton(self):
+        pass
