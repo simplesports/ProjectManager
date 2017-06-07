@@ -35,6 +35,8 @@ class AddProjects(QWidget):
         self.AddProjects.Button_Dates_Update_Table.hide()
         self.AddProjects.Button_Contacts_Update_Table.hide()
 
+        self.AddProjects.Button_Cancel.clicked.connect(self.cancelButton)
+
 
     def addContacts(self):
         if self.checkContactsAdd() == True:
@@ -109,16 +111,38 @@ class AddProjects(QWidget):
                 cursorProject = conn.cursor()
                 if self.AddProjects.Button_Add_Project.text() == 'Update Project':
                     pass
+                    #fill in later once I get the Add fully working then we can do the edit, but this section is only for edit
                 else:
-                    #print('Project was added')
                     PName = self.AddProjects.UserInput_Project_Name.text()
                     PNumber = self.AddProjects.UserInput_Project_Number.text()
                     PFolder = self.AddProjects.UserInput_Project_Folder.text()
                     addComments = self.AddProjects.textEdit_Additional_Comments.toPlainText()
                     icon = None
                     cursorProject.execute(""" INSERT INTO  Projects(Project_Name,Project_Number,Project_Folder,Add_Comments,Icon,status) VALUES (?,?,?,?,?,?)""",(PName,PNumber,PFolder,addComments,icon,0))
-                    self.signal.emit()
-                    self.close()
+                    key = cursorProject.lastrowid
+                    #This is for the contacts section.
+
+                    for i in range(0,self.AddProjects.tableWidget_Contacts.rowCount()):
+                        contactName = self.AddProjects.tableWidget_Contacts.item(i,0).text()
+                        contactNumber = self.AddProjects.tableWidget_Contacts.item(i,1).text()
+                        title = self.AddProjects.tableWidget_Contacts.item(i,2).text()
+                        company = self.AddProjects.tableWidget_Contacts.item(i,3).text()
+                        email = self.AddProjects.tableWidget_Contacts.item(i,4).text()
+                        if self.AddProjects.tableWidget_Contacts.item(i,5).text() == 'Yes':
+                            mainContact = 1
+                        else:
+                            mainContact = 0
+                        cursorProject.execute(""" INSERT INTO  Contacts(Project,Contact_Name,Contact_PhoneNumber,Title,Main_Contact,company,email) VALUES (?,?,?,?,?,?,?)""",(key,contactName,contactNumber,title,mainContact,company,email))
+                        #I wanted to make a script that would generate SQL code so it wouldn't be running a quary everytime, but i have an old version of sqlite, its not worth it at the moment
+
+                    for i in range(0,self.AddProjects.tableWidget_Dates.rowCount()):
+                        Desc = self.AddProjects.tableWidget_Dates.item(i,0).text()
+                        date = self.AddProjects.tableWidget_Dates.item(i,1).text()
+                        strDate =datetime.datetime.strptime(date, '%m/%d/%Y').strftime('%Y-%m-%d')
+                        cursorProject.execute(""" INSERT INTO  DueDates(Project,Description,Due_Date) VALUES (?,?,?)""",(key,Desc,strDate))
+
+            self.close()
+            self.signal.emit()
 
     def checksToAddProject(self):
 
@@ -148,6 +172,9 @@ class AddProjects(QWidget):
             return False
 
         return True
+
+    def cancelButton(self):
+        self.signal.emit()
 
     def setProjectNumber(self,projectNumber):
         self.AddProjects.UserInput_Project_Number.setText(projectNumber)

@@ -77,12 +77,13 @@ class MainWindow(QMainWindow):
         with sqlite3.connect(db_filename) as conn:
             cursorProject = conn.cursor()
 #****************************************************************************************************************************************************************************************************************
-            cursorProject.execute(""" select Project, Due_Date from DueDates ORDER BY date(Due_Date) """)
+            cursorProject.execute(""" SELECT Project, Due_Date FROM DueDates ORDER BY datetime(Due_Date) ASC""")
 
             curentAllDates = cursorProject.fetchall()
             now = datetime.datetime.now()
             dcheck = []
             for i in curentAllDates:
+                #pdb.set_trace()
                 dcheck.append(datetime.datetime.strptime(i[1], '%Y-%m-%d'))
 
             currentOrderkey = []
@@ -582,6 +583,7 @@ class MainWindow(QMainWindow):
         self.loadCurrentCustomWidgets()
         self.loadOverDueCustomWidget()
         self.load_Finished_CustomWidget()
+
 
     def changeTab(self):
         self.MainUi.list_Current_Projects.clearSelection()
