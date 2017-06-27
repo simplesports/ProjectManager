@@ -605,6 +605,16 @@ class MainWindow(QMainWindow):
         NewProjects.signal.connect(self.refresh)
         NewProjects.show()
 
+        sender = self.sender()
+
+        listObject = sender.objectName()
+        Listbox = self.findChildren(QListWidget, listObject)[0]
+        SelectedProject = currentProjects[current_project_list[Listbox.currentRow()]]
+        NewProjects.setProjectName(str(SelectedProject['Project_Name'][0]))
+        NewProjects.setProjectNumber(str(SelectedProject['Project_Number'][0]))
+        NewProjects.setDueDates(SelectedProject['Due_Dates'])
+        #pdb.set_trace()
+
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self.MainUi.list_Current_Projects.clearSelection()

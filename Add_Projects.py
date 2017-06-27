@@ -185,11 +185,15 @@ class AddProjects(QWidget):
     def setContacts(self):
         pass
 
-    def setDueDates(self):
-        pass
+    def setDueDates(self,SelectedProjectDates):
+        for i in range(0,len(SelectedProjectDates['Dates'])):
+            self.AddProjects.tableWidget_Dates.insertRow(i)
+            self.AddProjects.tableWidget_Dates.setItem(i,0,QTableWidgetItem(SelectedProjectDates['Description'][i]))
+            dateStr = SelectedProjectDates['Dates'][i].strftime("%m/%d/%Y")
+            self.AddProjects.tableWidget_Dates.setItem(i,1, QTableWidgetItem(dateStr))
 
-    def setProjectFolder(self):
-        pass
+    def setProjectFolder(self,projectFolder):
+        self.AddProjects.UserInput_Project_Folder.setText(projectFolder)
 
     def setAddComments(self):
         pass

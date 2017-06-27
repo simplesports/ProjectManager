@@ -193,13 +193,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="7">
-       <widget class="QCheckBox" name="checkBox">
-        <property name="text">
-         <string>Main?</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="2">
        <widget class="QLabel" name="text_Contact_PhoneNumber">
         <property name="text">
@@ -210,10 +203,10 @@
       <item row="0" column="1">
        <widget class="QLineEdit" name="UserInput_Main_Contact_Name"/>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="text_Email">
+      <item row="0" column="7">
+       <widget class="QCheckBox" name="checkBox">
         <property name="text">
-         <string>Email:</string>
+         <string>Main?</string>
         </property>
        </widget>
       </item>
@@ -221,6 +214,13 @@
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Title:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="text_Email">
+        <property name="text">
+         <string>Email:</string>
         </property>
        </widget>
       </item>
@@ -280,14 +280,11 @@
         </column>
        </widget>
       </item>
-      <item row="1" column="3" colspan="4">
-       <widget class="QLineEdit" name="UserInput_Company"/>
-      </item>
       <item row="3" column="1" colspan="6">
        <widget class="QLineEdit" name="UserInput_Email"/>
       </item>
-      <item row="0" column="3" colspan="4">
-       <widget class="QLineEdit" name="UserInput_Main_Contact_PhoneNumber"/>
+      <item row="1" column="3" colspan="4">
+       <widget class="QLineEdit" name="UserInput_Company"/>
       </item>
       <item row="6" column="0" colspan="8">
        <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -327,6 +324,9 @@
         </item>
        </layout>
       </item>
+      <item row="0" column="3" colspan="4">
+       <widget class="QLineEdit" name="UserInput_Main_Contact_PhoneNumber"/>
+      </item>
      </layout>
     </widget>
    </item>
@@ -353,6 +353,31 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>UserInput_Project_Number</tabstop>
+  <tabstop>UserInput_Project_Name</tabstop>
+  <tabstop>UserInput_Main_Contact_Name</tabstop>
+  <tabstop>UserInput_Main_Contact_PhoneNumber</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>UserInput_Title</tabstop>
+  <tabstop>UserInput_Company</tabstop>
+  <tabstop>UserInput_Email</tabstop>
+  <tabstop>Button_Add_To_Table_Contacts</tabstop>
+  <tabstop>Button_Contacts_Update_Table</tabstop>
+  <tabstop>Button_Contacts_Remove</tabstop>
+  <tabstop>UserInput_Description</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>Button_Add_To_Table_Due_Dates</tabstop>
+  <tabstop>Button_Dates_Update_Table</tabstop>
+  <tabstop>Button_Dates_Remove</tabstop>
+  <tabstop>UserInput_Project_Folder</tabstop>
+  <tabstop>Button_Browse</tabstop>
+  <tabstop>textEdit_Additional_Comments</tabstop>
+  <tabstop>Button_Add_Project</tabstop>
+  <tabstop>Button_Cancel</tabstop>
+  <tabstop>tableWidget_Contacts</tabstop>
+  <tabstop>tableWidget_Dates</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
