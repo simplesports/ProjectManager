@@ -613,6 +613,12 @@ class MainWindow(QMainWindow):
         NewProjects.setProjectName(str(SelectedProject['Project_Name'][0]))
         NewProjects.setProjectNumber(str(SelectedProject['Project_Number'][0]))
         NewProjects.setDueDates(SelectedProject['Due_Dates'])
+        NewProjects.setContacts(SelectedProject['Contacts'],SelectedProject['MaincontactName'])
+        #remeber to change the project folder so it looks correct
+        NewProjects.setProjectFolder(SelectedProject['Project_Folder'][0])
+        NewProjects.setComments(SelectedProject['Comments'][0])
+        NewProjects.setButton()
+        NewProjects.setWindowTitle('Editing: ' + str(SelectedProject['Project_Name'][0]))
         #pdb.set_trace()
 
     def mousePressEvent(self, event):

@@ -27,6 +27,7 @@ class AddProjects(QWidget):
         self.AddProjects.Button_Contacts_Remove.clicked.connect(self.removeContact)
         self.AddProjects.Button_Dates_Remove.clicked.connect(self.removeDate)
         self.AddProjects.Button_Browse.clicked.connect(self.browse)
+        self.AddProjects.tableWidget_Contacts.doubleClicked.connect(self.editContacts)
 
         self.AddProjects.dateEdit.setCalendarPopup(True)
         dt = datetime.date.today()
@@ -71,6 +72,29 @@ class AddProjects(QWidget):
         for index in index_list:
             self.AddProjects.tableWidget_Contacts.removeRow(index.row())
 
+    def editContacts(self):
+
+        row = self.AddProjects.tableWidget_Contacts.currentItem().row()
+
+        ContactName = self.AddProjects.tableWidget_Contacts.item(row,0).text()
+        ContactNumber = self.AddProjects.tableWidget_Contacts.item(row,1).text()
+        ContactTitle = self.AddProjects.tableWidget_Contacts.item(row,2).text()
+        ContactCompany = self.AddProjects.tableWidget_Contacts.item(row,3).text()
+        ContactEmail = self.AddProjects.tableWidget_Contacts.item(row,4).text()
+        mainContact = self.AddProjects.tableWidget_Contacts.item(row,5).text()
+        self.AddProjects.Button_Contacts_Update_Table.show()
+        self.AddProjects.Button_Add_To_Table_Contacts.hide()
+
+        self.AddProjects.UserInput_Main_Contact_Name.setText(ContactName)
+        self.AddProjects.UserInput_Main_Contact_PhoneNumber.setText(ContactNumber)
+        self.AddProjects.UserInput_Company.setText(ContactCompany)
+        self.AddProjects.UserInput_Title.setText(ContactTitle)
+        self.AddProjects.UserInput_Email.setText(ContactEmail)
+
+        #When you get back from Peru, make a cancel button for the update where it will just deselect and clear all the fields
+        #Also if 'mainContact' is Yes then allow the box to be checked and have it checked. Then if it is checked de-enable the check box
+        # if it is not then enable the check box. This way the main contact can be switched.
+
     def addDates(self):
         Description = self.AddProjects.UserInput_Description.text()
         date = self.AddProjects.dateEdit.text()
@@ -104,13 +128,15 @@ class AddProjects(QWidget):
 
     @pyqtSlot()
     def addProject(self):
+
         check = self.checksToAddProject()
         if check == True:
             db_filename = '.\DB\ProgramManagerDB.sqlite'
             with sqlite3.connect(db_filename) as conn:
                 cursorProject = conn.cursor()
                 if self.AddProjects.Button_Add_Project.text() == 'Update Project':
-                    pass
+                    print('The Project was updated')
+
                     #fill in later once I get the Add fully working then we can do the edit, but this section is only for edit
                 else:
                     PName = self.AddProjects.UserInput_Project_Name.text()
@@ -174,7 +200,7 @@ class AddProjects(QWidget):
         return True
 
     def cancelButton(self):
-        self.signal.emit()
+        self.close()
 
     def setProjectNumber(self,projectNumber):
         self.AddProjects.UserInput_Project_Number.setText(projectNumber)
@@ -182,8 +208,22 @@ class AddProjects(QWidget):
     def setProjectName(self,projectName):
         self.AddProjects.UserInput_Project_Name.setText(projectName)
 
-    def setContacts(self):
-        pass
+    def setContacts(self,SelectedProjectsContacts,MainContact):
+        for i in range(0,len(SelectedProjectsContacts['contactName'])):
+            self.AddProjects.tableWidget_Contacts.insertRow(i)
+            self.AddProjects.tableWidget_Contacts.setItem(i, 0, QTableWidgetItem(SelectedProjectsContacts['contactName'][i]))
+            self.AddProjects.tableWidget_Contacts.setItem(i, 1, QTableWidgetItem(SelectedProjectsContacts['contactNumber'][i]))
+            self.AddProjects.tableWidget_Contacts.setItem(i, 2, QTableWidgetItem(SelectedProjectsContacts['title'][i]))
+            self.AddProjects.tableWidget_Contacts.setItem(i, 3, QTableWidgetItem(SelectedProjectsContacts['company'][i]))
+            self.AddProjects.tableWidget_Contacts.setItem(i, 4, QTableWidgetItem(SelectedProjectsContacts['email'][i]))
+
+            if SelectedProjectsContacts['contactName'][i] == MainContact:
+                self.AddProjects.tableWidget_Contacts.setItem(i,5, QTableWidgetItem('Yes'))
+                self.AddProjects.checkBox.setEnabled(False)
+                self.AddProjects.checkBox.setChecked(False)
+            else:
+                self.AddProjects.tableWidget_Contacts.setItem(i,5, QTableWidgetItem('No'))
+
 
     def setDueDates(self,SelectedProjectDates):
         for i in range(0,len(SelectedProjectDates['Dates'])):
@@ -195,11 +235,8 @@ class AddProjects(QWidget):
     def setProjectFolder(self,projectFolder):
         self.AddProjects.UserInput_Project_Folder.setText(projectFolder)
 
-    def setAddComments(self):
-        pass
-
-    def setTitle(self):
-        pass
+    def setComments(self,SelectedProjectComments):
+        self.AddProjects.textEdit_Additional_Comments.setText(SelectedProjectComments)
 
     def setButton(self):
-        pass
+        self.AddProjects.Button_Add_Project.setText('Update Project')

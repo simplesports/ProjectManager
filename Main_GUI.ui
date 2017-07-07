@@ -101,10 +101,17 @@
          <string>Past Due Projects</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_7">
-         <item row="1" column="0">
+         <item row="0" column="1">
+          <widget class="QPushButton" name="Button_PastDue_Projects_Delete">
+           <property name="text">
+            <string>Delete Project</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
           <widget class="QListWidget" name="list_Past_Due_Projects"/>
          </item>
-         <item row="2" column="0">
+         <item row="2" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QPushButton" name="Button_Mark_As_Finish_Past_Due">
